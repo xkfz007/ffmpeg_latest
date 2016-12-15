@@ -10153,18 +10153,6 @@
 			RelativePath="..\source\ffprobe.c"
 			>
 		</File>
-		<File
-			RelativePath="..\source\ffserver.c"
-			>
-		</File>
-		<File
-			RelativePath="..\source\ffserver_config.c"
-			>
-		</File>
-		<File
-			RelativePath="..\source\ffserver_config.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

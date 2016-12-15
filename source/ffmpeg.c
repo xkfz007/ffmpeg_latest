@@ -3991,7 +3991,7 @@ static int seek_to_start(InputFile *ifile, AVFormatContext *is)
                                         ifile->time_base);
     }
 
-    if (ifile->loop > 0)
+    if (ifile->loop > 0)//if loop is <=0, this is infinit loop
         ifile->loop--;
 
     return ret;
@@ -4024,6 +4024,7 @@ static int process_input(int file_index)
     if (ret < 0 && ifile->loop) {
         if ((ret = seek_to_start(ifile, is)) < 0)
             return ret;
+		//+:bug fixed after v3.2, to be compatible with -re
         ret = get_input_packet(ifile, &pkt);
         if (ret == AVERROR(EAGAIN)) {
             ifile->eagain = 1;

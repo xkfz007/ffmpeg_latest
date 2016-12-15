@@ -1,0 +1,5 @@
+#!/bin/bash
+./config_internal \
+    conf=release \
+    ver=online \
+    enabled="x264,x265,libass,fdk-aac,freetype2,fontconfig,fribidi"

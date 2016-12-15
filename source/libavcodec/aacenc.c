@@ -931,7 +931,7 @@ static av_cold int aac_encode_init(AVCodecContext *avctx)
     /* Channel map and unspecified bitrate guessing */
     s->channels = avctx->channels;
     ERROR_IF(s->channels > AAC_MAX_CHANNELS || s->channels == 7,
-             "Unsupported number of channels: %d\n", s->channels);
+             "Unsupported number of channels: %d\n", s->channels);//+:this means at most 6 channels
     s->chan_map = aac_chan_configs[s->channels-1];
     if (!avctx->bit_rate) {
         for (i = 1; i <= s->chan_map[0]; i++) {

@@ -201,6 +201,8 @@ static void framesync_inject_frame(FFFrameSync *fs, unsigned in, AVFrame *frame)
 
 int ff_framesync_add_frame(FFFrameSync *fs, unsigned in, AVFrame *frame)
 {
+    //+:add some logs for filter 'movie' debugging
+    av_log(fs,AV_LOG_DEBUG,"C2:ff_framesync_add_frame %d\n",in);
     av_assert1(in < fs->nb_in);
     if (!fs->in[in].have_next)
         framesync_inject_frame(fs, in, frame);
@@ -280,6 +282,8 @@ int ff_framesync_process_frame(FFFrameSync *fs, unsigned all)
 {
     int ret, count = 0;
 
+    //+:add some logs for filter 'movie' debugging
+    av_log(fs,AV_LOG_DEBUG,"C1:ff_framesync_process_frame %d\n",all);
     av_assert0(fs->on_event);
     while (1) {
         ff_framesync_next(fs);
@@ -302,6 +306,8 @@ int ff_framesync_filter_frame(FFFrameSync *fs, AVFilterLink *inlink,
 {
     int ret;
 
+    //+:add some logs for filter 'movie' debugging
+    av_log(fs,AV_LOG_DEBUG,"B:ff_framesync_filter_frame\n");
     if ((ret = ff_framesync_process_frame(fs, 1)) < 0)
         return ret;
     if ((ret = ff_framesync_add_frame(fs, FF_INLINK_IDX(inlink), in)) < 0)

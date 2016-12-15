@@ -1079,7 +1079,7 @@ static int open_input_file(OptionsContext *o, const char *filename)
     f->nb_streams = ic->nb_streams;
     f->rate_emu   = o->rate_emu;
     f->accurate_seek = o->accurate_seek;
-    f->loop = o->loop;
+    f->loop = o->loop;//+:correspond option stream_loop
     f->duration = 0;
     f->time_base = (AVRational){ 1, 1 };
 #if HAVE_PTHREADS

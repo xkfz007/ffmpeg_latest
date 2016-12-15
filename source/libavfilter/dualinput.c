@@ -76,6 +76,8 @@ int ff_dualinput_init(AVFilterContext *ctx, FFDualInputContext *s)
 int ff_dualinput_filter_frame(FFDualInputContext *s,
                                    AVFilterLink *inlink, AVFrame *in)
 {
+    //+:add some logs for filter 'movie' debugging
+    av_log(s,AV_LOG_DEBUG,"A:ff_dualinput_filter_frame\n");
     return ff_framesync_filter_frame(&s->fs, inlink, in);
 }
 
