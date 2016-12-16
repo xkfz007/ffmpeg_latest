@@ -3,6 +3,11 @@ releases are sorted from youngest to oldest.
 
 version <next>:
 
+version 3.2.S2:
+* add option 'digit_only' for video file testsrc
+* enlarge filename to 2048
+* add glob to support globbing
+
 version 3.2:
 - libopenmpt demuxer
 - tee protocol
