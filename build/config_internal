@@ -203,14 +203,13 @@ do
     inc_dir="$extlib_dir/"
     pkg_prefix="$extlib_dir"
     if [ ${fea_list[$key]} = "on" ];then
-        extlib_cmd=${extlib_cmd}" --enable-${extlib_list[$key]}"
+        pkgconfig_generate $key "$pkg_dir" "$extlib_dir" "$pkg_prefix" 
+        lib_flags=${lib_flags}" -L'"$lib_dir"'"
+        inc_flags=${inc_flags}" -I'"$inc_dir"'"
         #name=$(to_lower $key)
+        extlib_cmd=${extlib_cmd}" --enable-${extlib_list[$key]}"
         if [[ "$key" == "sdl"* ]];then
             extlib_cmd=${extlib_cmd}" --enable-outdev=$key"
-        else
-            pkgconfig_generate $key "$pkg_dir" "$extlib_dir" "$pkg_prefix" 
-            lib_flags=${lib_flags}" -L'"$lib_dir"'"
-            inc_flags=${inc_flags}" -I'"$inc_dir"'"
         fi
     fi
 done
