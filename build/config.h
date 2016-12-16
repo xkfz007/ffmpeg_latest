@@ -2221,4 +2221,12 @@
 #define CONFIG_LIBRTMPTE_PROTOCOL 0
 #define CONFIG_LIBSSH_PROTOCOL 0
 #define CONFIG_LIBSMBCLIENT_PROTOCOL 0
+#include "./defines.h"
+
+#ifdef WIN32
+#define strtoll _strtoi64
+#define MAX_PATH 256
+#include "libavutil\libm.h"
+#include "compat\msvcrt\snprintf.h"
+#endif
 #endif /* FFMPEG_CONFIG_H */

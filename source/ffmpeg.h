@@ -601,6 +601,18 @@ int init_simple_filtergraph(InputStream *ist, OutputStream *ost);
 int init_complex_filtergraph(FilterGraph *fg);
 
 int ffmpeg_parse_options(int argc, char **argv);
+#if WRAP_FFMPEG
+int ffmpeg_parse_options_inadvance(int argc,char** argv,int *argc_internal,char**argv_internal
+		,const char **output_tag,int* otag_list,int *output_cnt,int* input_ind,char** patterns);
+void show_ffconvert_usage();
+
+#define FFERROR_OPTION_NOT_FOUND  -1
+//#define FFERROR_INPUT_IS_LIVE      1
+#define FFERROR_NO_INPUT           2
+#define FFERROR_MULTI_INPUT        3
+#define FF_DO_EXECUTE              8
+#define FF_TEE_OUTPUT              9
+#endif
 
 int vdpau_init(AVCodecContext *s);
 int dxva2_init(AVCodecContext *s);

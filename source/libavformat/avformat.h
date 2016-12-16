@@ -1401,7 +1401,7 @@ typedef struct AVFormatContext {
      * - demuxing: set by avformat_open_input()
      * - muxing: may be set by the caller before avformat_write_header()
      */
-    char filename[1024];
+    char filename[OUTPUT_FILENAME_LEN];//enlarge filename len
 
     /**
      * Position of the first frame of the component, in
