@@ -5014,6 +5014,7 @@ int avformat_match_stream_specifier2(AVFormatContext *s, AVStream *st,
             if (s->programs[i]->id != prog_id)
                 continue;
 
+            //+: stream index of specified program
             if (*endptr++ == ':') {
                 av_log(s,AV_LOG_DEBUG,"endprt=%s",endptr);
                 if (*endptr<= '9' && *endptr>= '0') {
@@ -5023,11 +5024,69 @@ int avformat_match_stream_specifier2(AVFormatContext *s, AVStream *st,
                         st->index == s->programs[i]->stream_index[stream_idx];
                 }
                 else if (*endptr == 'v' || *endptr == 'a' || *endptr == 's' || *endptr == 'd' ||
-                    *endptr == 't' || *endptr == 'V') { /* opt:[vasdtV] */
-                        return avforamt_match_stream_specifier_internal(s,st,endptr);
+                    *endptr == 't' || *endptr == 'V') {
+                        enum AVMediaType type;
+                        int nopic = 0;
+
+                        switch (*spec++) {
+                            case 'v': type = AVMEDIA_TYPE_VIDEO;      break;
+                            case 'a': type = AVMEDIA_TYPE_AUDIO;      break;
+                            case 's': type = AVMEDIA_TYPE_SUBTITLE;   break;
+                            case 'd': type = AVMEDIA_TYPE_DATA;       break;
+                            case 't': type = AVMEDIA_TYPE_ATTACHMENT; break;
+                            case 'V': type = AVMEDIA_TYPE_VIDEO; nopic = 1; break;
+                            default:  av_assert0(0);
+                        }
+#if FF_API_LAVF_AVCTX
+                        FF_DISABLE_DEPRECATION_WARNINGS
+                            if (type != st->codecpar->codec_type
+                                && (st->codecpar->codec_type != AVMEDIA_TYPE_UNKNOWN || st->codec->codec_type != type))
+                                return 0;
+                        FF_ENABLE_DEPRECATION_WARNINGS
+#else
+                        if (type != st->codecpar->codec_type)
+                            return 0;
+#endif
+                        if (nopic && (st->disposition & AV_DISPOSITION_ATTACHED_PIC))
+                            return 0;
+
+                        for (j = 0; j < s->programs[i]->nb_stream_indexes; j++)
+                            if (st->index != s->programs[i]->stream_index[j])
+                                continue;
+                        //+: did not find the stream index from program stream list
+                        if(j==s->programs[i]->nb_stream_indexes)
+                            return 0;
+
+                        if (*spec++ == ':') { /* possibly followed by :index */
+                            int k, index = strtol(spec, NULL, 0);
+                            for (k = 0; k < s->programs[i]->nb_stream_indexes; k++) {
+                                int ps_idx=s->programs[i]->stream_index[k];//stream index of program
+#if FF_API_LAVF_AVCTX
+                                FF_DISABLE_DEPRECATION_WARNINGS
+                                    if ((s->streams[ps_idx]->codecpar->codec_type == type
+                                        || s->streams[ps_idx]->codec->codec_type == type
+                                        ) &&
+                                        !(nopic && (st->disposition & AV_DISPOSITION_ATTACHED_PIC)) &&
+                                        index-- == 0)
+                                        return ps_idx == st->index;
+                                FF_ENABLE_DEPRECATION_WARNINGS
+#else
+                                if ((s->streams[ps_idx]->codecpar->codec_type == type) &&
+                                    !(nopic && (st->disposition & AV_DISPOSITION_ATTACHED_PIC)) &&
+                                    index-- == 0)
+                                    return ps_idx == st->index;
+#endif
+                            }
+                            return 0;
+                        }
+                        return 1;
                 }
+                else
+                    return 0;
+
             }
 
+            //+: find the right stream from streams of this program
             for (j = 0; j < s->programs[i]->nb_stream_indexes; j++)
                 if (st->index == s->programs[i]->stream_index[j])
                     return 1;

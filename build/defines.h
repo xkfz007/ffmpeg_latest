@@ -8,7 +8,7 @@
 #ifndef DEFINES_H_
 #define DEFINES_H_
 
-#define WRAP_FFMPEG 1
+#define WRAP_FFMPEG 0
 #define PRINT_PROCESSED 1
 #define ENABLE_QUIT 1
 #define FIX_PIXEL_FORMAT 1

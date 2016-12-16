@@ -323,16 +323,16 @@ static int opt_map(void *optctx, const char *opt, const char *arg)
             exit_program(1);
         }
     } else {
-        if (allow_unused = strchr(map, '?'))
+        if (allow_unused = strchr(map, '?'))//+: check if invalid map could be ignored
             *allow_unused = 0;
-        file_idx = strtol(map, &p, 0);
+        file_idx = strtol(map, &p, 0);//+: get file index
         if (file_idx >= nb_input_files || file_idx < 0) {
             av_log(NULL, AV_LOG_FATAL, "Invalid input file index: %d.\n", file_idx);
             exit_program(1);
         }
         if (negative)
             /* disable some already defined maps */
-            for (i = 0; i < o->nb_stream_maps; i++) {
+            for (i = 0; i < o->nb_stream_maps; i++) {//+: like -map 0 -map -0:1, here is for the second map
                 m = &o->stream_maps[i];
                 if (file_idx == m->file_index &&
                     check_stream_specifier(input_files[m->file_index]->ctx,

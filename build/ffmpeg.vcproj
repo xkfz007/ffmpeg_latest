@@ -10130,6 +10130,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\defines.h"
+			>
+		</File>
+		<File
 			RelativePath="..\source\ffmpeg.c"
 			>
 		</File>

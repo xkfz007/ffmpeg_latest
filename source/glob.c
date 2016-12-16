@@ -37,6 +37,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
+#include <limits.h>
+#include <alloca.h>
 #include "glob.h"
 //#include <dirent.h> //for DIR
 
