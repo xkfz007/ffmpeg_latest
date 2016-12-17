@@ -39,7 +39,7 @@
 #include <string.h>
 #include <limits.h>
 #include <alloca.h>
-#include "glob.h"
+#include "ff_glob.h"
 //#include <dirent.h> //for DIR
 
 #if defined (HAVE_DIRENT_H)
@@ -1794,7 +1794,7 @@ static char ** glob_dir_to_array(char* dir, char** array, int flags) {
  If there isn't enough memory, then return NULL.
  If a file system error occurs, return -1; `errno' has the error code.  */
 
-char ** glob_filename(char* pathname, int flags) {
+char ** ff_glob_filename(char* pathname, int flags) {
 	char **result;
 	unsigned int result_size;
 	char *directory_name, *filename;
@@ -1839,7 +1839,7 @@ char ** glob_filename(char* pathname, int flags) {
 		if (directory_name[directory_len - 1] == '/')
 			directory_name[directory_len - 1] = '\0';
 
-		directories = glob_filename(directory_name, flags & ~GX_MARKDIRS);
+		directories = ff_glob_filename(directory_name, flags & ~GX_MARKDIRS);
 
 		if (free_dirname) {
 			free(directory_name);
@@ -1999,7 +1999,7 @@ int main (int argc,char* argv[])
 
 	for (i = 1; i < argc; ++i)
 	{
-		char **value = glob_filename (argv[i], 0);
+		char **value = ff_glob_filename (argv[i], 0);
 		if (value == NULL)
 		puts ("Out of memory.");
 		else if (value == &glob_error_return)

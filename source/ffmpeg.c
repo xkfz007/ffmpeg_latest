@@ -4643,8 +4643,7 @@ int main(int argc, char **argv)
 }
 
 #if WRAP_FFMPEG
-//extern char ** glob_filename (char* pathname, int flags);
-#include "glob.h"
+#include "ff_glob.h"
 //#include <string.h>
 //#if !HAVE_GETOPT
 //#include "compat/getopt.c"
@@ -4787,7 +4786,7 @@ int main(int argc, char* argv[]){
 //	}
 
 	//parse patterns to get all the files
-	input_filelist= glob_filename (patterns, 1);
+	input_filelist= ff_glob_filename (patterns, 1);
 
 	if(!input_filelist){
 		av_log(NULL,AV_LOG_ERROR,"Could not find files\n");

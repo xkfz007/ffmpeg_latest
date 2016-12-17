@@ -10157,6 +10157,14 @@
 			RelativePath="..\source\ffprobe.c"
 			>
 		</File>
+		<File
+			RelativePath="..\source\glob.c"
+			>
+		</File>
+		<File
+			RelativePath="..\source\glob.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

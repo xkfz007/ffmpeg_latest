@@ -15,8 +15,8 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.  */
 
-#ifndef	_GLOB_H_
-#define	_GLOB_H_
+#ifndef	_FF_GLOB_H_
+#define	_FF_GLOB_H_
 
 //#include "stdc.h"
 
@@ -27,7 +27,7 @@
 
 //extern int glob_pattern_p __P((const char *));
 //extern char **glob_vector __P((char *, char *, int));
-extern char **glob_filename __P((char *, int));
+extern char **ff_glob_filename __P((char *, int));
 
 //extern char *glob_error_return;
 //extern int noglob_dot_filenames;

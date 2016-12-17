@@ -294,7 +294,7 @@ function replace_macro
 if [ "$sys_name" = "cygwin" ];then
     replace_macro "HAVE_ARC4RANDOM"     "$config_file"
     replace_macro "HAVE_GETTIMEOFDAY"   "$config_file"
-    replace_macro "HAVE_GLOB"           "$config_file"
+#    replace_macro "HAVE_GLOB"           "$config_file"
     replace_macro "CONFIG_DOC"          "$config_file"
     replace_macro "HAVE_TERMIOS_H"      "$config_file"
 fi
