@@ -10126,11 +10126,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\config_internal"
+			>
+		</File>
+		<File
 			RelativePath="..\source\configure"
 			>
 		</File>
 		<File
 			RelativePath=".\defines.h"
+			>
+		</File>
+		<File
+			RelativePath="..\source\ff_glob.c"
+			>
+		</File>
+		<File
+			RelativePath="..\source\ff_glob.h"
 			>
 		</File>
 		<File
@@ -10155,14 +10167,6 @@
 		</File>
 		<File
 			RelativePath="..\source\ffprobe.c"
-			>
-		</File>
-		<File
-			RelativePath="..\source\glob.c"
-			>
-		</File>
-		<File
-			RelativePath="..\source\glob.h"
 			>
 		</File>
 	</Files>
